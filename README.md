@@ -1,22 +1,19 @@
-# AI Type Detective — Skills Bank | GitHub Pages (fixed)
+# AI Type Detective — Skills Bank | v2 (live sessions)
 
-Single `index.html`, no build, no keys. Upload `index.html` and `.nojekyll` to the root of a **public** GitHub repo, then Settings → Pages → Deploy from branch `main` / root.
+One `index.html`, no build, no keys. Upload `index.html` + `.nojekyll` to a **public** GitHub repo → Settings → Pages → Deploy from `main` / root.
 
-## Trainer workflow
-1. Open the published link → **Trainer Dashboard** → code `2026`.
-2. A session is created automatically. Copy the **player link** (or the Arabic one) and send it. Press **New live session** for every class.
-3. Watch players appear. **Reveal ranking** shows the leaderboard on the players' screens (your dashboard stays visible). **Refresh** rebuilds everything from the relay history. **Export CSV** at the end.
+## Trainer
+1. Open the site → **Trainer Dashboard** → code `2026`. A session with a **5-character code** (e.g. `K7M2Q`) is created for you.
+2. **+ New session** adds another one. Up to 6 sessions run at the same time (one tab each, own code, own players, own results). Give each a name (optional) such as "Group A".
+3. Send the **player link** (or the Arabic link), or just tell people the 5-character code to type on the home page.
+4. **Projector view** shows the big code + who joined + progress; after **Reveal ranking** it shows the leaderboard.
+5. **Reset session** gives that tab a **new code** and closes the old one (tap twice to confirm). **Close session** removes the tab.
+6. **Case accuracy** shows which cases were hardest (use it for the debrief). **Export CSV** per session.
 
-## What was fixed
-- Game can start **without a session link** (solo mode, shown as `◌ SOLO`). Before, it refused with "Invalid session code".
-- The code box accepts the **whole pasted link** (it used to be cut at 40 characters).
-- The page no longer breaks when the browser **blocks storage** (in-app browsers, some privacy modes, iframes).
-- Sending **retries automatically** instead of losing an answer; the `finish` message also carries all answers.
-- If the live stream (SSE) is blocked, the dashboard falls back to **polling**; players only open the live stream when they finish (fewer connections to ntfy.sh).
-- The dashboard shows **why** it is offline. The trainer's ranking overlay no longer covers the dashboard.
-- Optional: `?relay=https://your-ntfy-server` on the link uses your own ntfy server.
+## Players
+Name + session code (or open the link) → countdown → 7 case files with hint coins. Correct answers get a SOLVED stamp, confetti and chimes; wrong ones get a shake, a COLD CASE stamp and the correct answer highlighted. Leave the code empty to play solo. A refresh resumes the mission.
 
 ## Limits
-- Uses the free public relay `ntfy.sh`. Free limits are tight (per IP), so a big class on one Wi-Fi can hit them. Rehearse with 2 devices; keep **Download backup result** / **Import** as the safety net.
-- Do not open the page inside a sandboxed preview (e.g. an artifact viewer): it blocks network calls to other sites. Use the GitHub Pages link.
-- The `2026` code only hides the UI. Use fictional training data only.
+- Uses the free public relay ntfy.sh (free limits are per IP; rehearse with two devices). Players only open the live stream when they finish, to save connections. Backup: players download their result, trainer imports it.
+- Codes are short, so treat sessions as public: use fictional data only. The `2026` code only hides the UI.
+- Optional: add `?relay=https://your-ntfy-server` to the link to use your own server.
