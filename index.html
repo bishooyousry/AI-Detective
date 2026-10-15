@@ -46,6 +46,7 @@ input,textarea{width:100%;padding:13px;background:#0c1930;border:1px solid #4963
 .type.selected{border-color:var(--gold);background:#53432b;transform:scale(1.02)}.type:hover:not(:disabled){border-color:var(--mint)}
 .type.right{border-color:var(--mint);background:#0f4a43;box-shadow:0 0 0 2px #51ebcf55,0 0 22px #51ebcf44;opacity:1}
 .type.wrong{border-color:var(--red);background:#4d2424;animation:shake .6s;opacity:1}
+.ticon{font-size:24px;line-height:1;flex:none;width:30px;text-align:center}.tlabel{flex:1}
 .type:disabled:not(.right):not(.wrong){opacity:.45}
 .feedback{padding:15px;background:#103c35;border:1px solid #51bea8;border-radius:11px;line-height:1.7;animation:slideUp .4s both}
 .feedback.bad{background:#3c2d2c;border-color:#ec9974}
@@ -262,6 +263,7 @@ const tt=k=>T[k]?T[k][lang==='ar'?1:0]:k;
 const RM=()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}};
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const ICON={'Machine Learning':'🧠','Computer Vision':'👁️','Natural Language Processing':'📝','Predictive AI':'🔮','Generative AI':'✨','Automation AI':'⚙️','Conversational AI':'💬'};
 const tr=n=>lang==='ar'?(AR_TYPES[n]||n):n;
 function caseData(i){const d=ORIGINAL[i];return lang==='ar'?{title:AR[i][0],story:AR[i][1],clues:AR[i][2],reason:AR[i][3],answer:d[2]}:{title:d[0],story:d[1],clues:d[3],reason:d[4],answer:d[2]}}
 /* ---------- codes ---------- */
@@ -394,7 +396,7 @@ function renderCase(){
   cl.append(el)});
  $('hintNote').textContent=L('Opened ','تم فتح ')+me.hints.length+'/3 '+L('hints','أدلة');
  const ty=$('types');ty.replaceChildren();
- TYPES.forEach(t=>{const b=document.createElement('button');let cls='type';if(me.selected===t)cls+=' selected';if(me.locked){if(t===d.answer)cls+=' right';else if(t===me.selected)cls+=' wrong'}b.className=cls;b.disabled=me.locked;b.textContent=(me.locked&&t===d.answer?'✅ ':me.locked&&t===me.selected?'❌ ':'◈ ')+tr(t);b.onclick=()=>{me.selected=t;snd('tap');renderCase()};ty.append(b)});
+ TYPES.forEach(t=>{const b=document.createElement('button');let cls='type';if(me.selected===t)cls+=' selected';if(me.locked){if(t===d.answer)cls+=' right';else if(t===me.selected)cls+=' wrong'}b.className=cls;b.disabled=me.locked;const ic=document.createElement('span');ic.className='ticon';ic.textContent=ICON[t]||'◈';const lb=document.createElement('span');lb.className='tlabel';lb.textContent=tr(t);b.append(ic,lb);if(me.locked&&t===d.answer){const m=document.createElement('span');m.textContent='✅';b.append(m)}else if(me.locked&&t===me.selected){const m=document.createElement('span');m.textContent='❌';b.append(m)};b.onclick=()=>{me.selected=t;snd('tap');renderCase()};ty.append(b)});
  $('submitBtn').disabled=!me.selected&&!me.locked;
  $('submitBtn').textContent=me.locked?(me.pos===6?L('MISSION REPORT ➜','تقرير المهمة ←'):L('NEXT CASE ➜','القضية التالية ←')):tt('decode');
  const fb=$('feedback');
